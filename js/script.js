@@ -4,7 +4,7 @@
 const printIcons = (object) => {
     document.querySelectorAll('.boxIcon').forEach(e => e.remove());
     object.forEach((element) => {
-        const { name, family, prefix, category,color} = element;
+        const { name, family, prefix, category, color} = element;
 
         main.innerHTML += `
         <div class="boxIcon">
@@ -14,6 +14,22 @@ const printIcons = (object) => {
         `;
     });
 };
+const printCategories = (arrayCat, arrayIcons) => {
+    select.innerHTML = '';
+    arrayIcons.forEach(
+        (element) => {
+            if (arrayCat.includes(element.category) == false) {
+                arrayCat.push(element.category);
+            }
+        }
+    );
+    select.innerHTML += `<option value="all" selected>All</option>`;
+    arrayCat.forEach(
+        (element) => {
+            select.innerHTML += `<option value="${element}">${element}</option>`
+        }
+    );
+}
 
 /**
  * Main code
@@ -151,18 +167,7 @@ const iconColored = icons.map(
 )
 
 const iconCategories = [];
-iconColored.forEach(
-    (element) => {
-        if ( iconCategories.includes(element.category) == false) {
-            iconCategories.push(element.category);
-        }
-    }
-);
-iconCategories.forEach(
-    (element) => {
-        select.innerHTML += `<option value="${element}">${element}</option>`
-    }
-);
+printCategories(iconCategories, iconColored);
 
 //Stampo tutti gli elementi
 printIcons(iconColored);
@@ -211,6 +216,7 @@ addBtn.addEventListener(`click`,
 
         iconColored.push(newIcon);
 
+        printCategories(iconCategories, iconColored);
         printIcons(iconColored);
 
         newIconName.value = '';
