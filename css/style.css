@@ -24,6 +24,27 @@ header div {
     background-color: rgb(41, 177, 221);
     text-align: center;
 }
+header select,
+header input,
+header button {
+    padding: 5px;
+    border-radius: 10px;
+    margin-left: 5px;
+    text-align: center;
+}
+.containerInput {
+    display: flex;
+    justify-content: space-evenly;
+}
+.divInput {
+    width: 50%;
+}
+button {
+    background-color: #fff;
+}
+.divButton {
+    display: inline-block;
+}
 
 /* Main */
 main {
@@ -52,10 +73,25 @@ main {
     margin-bottom: 5px;
 }
 
+/* Hover effects */
+button:hover {
+    background-color: lightgray;
+}
+
 /* Media query */
 @media screen and (max-width: 1024px) {
     .boxIcon {
         width: calc(100% / 4 - 30px);
+    }
+    main {
+        height: calc(100vh - 180px);
+    }
+    .containerInput {
+        display: block;
+        height: 120px;
+    }
+    .divInput {
+        width: 100%;
     }
 }
 @media screen and (max-width: 768px) {
@@ -71,6 +107,16 @@ main {
 @media screen and (max-width: 500px) {
     .boxIcon {
         width: calc(100% / 2 - 30px);
+    }
+    .divButton {
+        display: block;
+    }
+    main {
+        height: calc(100vh - 240px);
+    }
+    .containerInput {
+        flex-wrap: wrap;
+        height: 180px;
     }
 }
 @media screen and (max-width: 375px) {

@@ -2,6 +2,7 @@
  * Functions
  */
 const printIcons = (object) => {
+    document.querySelectorAll('.boxIcon').forEach(e => e.remove());
     object.forEach((element) => {
         const { name, family, prefix, category,color} = element;
 
@@ -136,6 +137,9 @@ const colors = {
 
 const main = document.getElementById(`main`);
 const select = document.getElementById(`selectType`);
+const newIconName = document.getElementById(`newIconName`);
+const newIconCat = document.getElementById(`newIconCat`);
+const addBtn = document.getElementById(`addIcon`);
 
 const iconColored = icons.map(
     (element) => {
@@ -166,7 +170,6 @@ printIcons(iconColored);
 //Evento per cambiare la stampa con il cambiamento della select
 select.addEventListener(`change`, 
     () => {
-        document.querySelectorAll('.boxIcon').forEach(e => e.remove());
         const selectValue = document.getElementById(`selectType`).value;
         
         const iconFiltered = iconColored.filter(
@@ -179,5 +182,38 @@ select.addEventListener(`change`,
         );
 
         printIcons(iconFiltered);
+    }
+);
+
+//Evento per aggiungere una nuova icona
+addBtn.addEventListener(`click`, 
+    () => {
+        let newName = newIconName.value;
+        let newCat = newIconCat.value;
+
+        if (newIconName.value == '' || newIconCat.value == '') {
+            newIconName.value = '';
+            newIconCat.value = '';
+            alert(`Add the right data!`);
+            return false;
+        }
+
+        let newIcon = {
+            name: newName,
+            family: 'fas',
+            prefix: 'fa-',
+            category: newCat,
+        }
+        newIcon = {
+            ...newIcon,
+            color: colors[newIcon.category]
+        }
+
+        iconColored.push(newIcon);
+
+        printIcons(iconColored);
+
+        newIconName.value = '';
+        newIconCat.value = '';
     }
 );

@@ -21,11 +21,22 @@
         <header>
             <h1>Font icons</h1>
     
-            <div>
-                <label for="selectType">FILTER FOR TYPE</label>
-                <select name="selectType" id="selectType">
-                    <option value="all" selected>All</option>
-                </select>
+            <div class="containerInput">
+                <div class="divInput">
+                    <label for="selectType">FILTER FOR TYPE</label>
+                    <select name="selectType" id="selectType">
+                        <option value="all" selected>All</option>
+                    </select>
+                </div>
+
+                <div class="divInput">
+                    <label for="newIconName">ADD NEW ICON</label>
+                    <input type="text" name="newIconName" id="newIconName" placeholder="Write the name">
+                    <div class="divButton">
+                        <input type="text" name="newIconCat" id="newIconCat" placeholder="Write the category">
+                        <button id="addIcon">ADD</button>
+                    </div>
+                </div>
             </div>
         </header>
         <!-- /Header -->
