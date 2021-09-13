@@ -1,3 +1,89 @@
+/**
+ * Functions
+ */
+const printAll = (object) => {
+    object.forEach((element) => {
+        const { name, family, prefix, category,color} = element;
+
+        switch (category) {
+            case "food":
+                main.innerHTML += `
+            <div class="boxIcon">
+                <p><i class="${family} ${prefix}${name}" style="color:${color};"></i></p>
+                <span>${name}</span>
+            </div>
+            `;
+                break;
+            case "beverage":
+                main.innerHTML += `
+            <div class="boxIcon">
+                <p><i class="${family} ${prefix}${name}" style="color:${color};"></i></p>
+                <span>${name}</span>
+            </div>
+            `;
+                break;
+            case "animal":
+                main.innerHTML += `
+            <div class="boxIcon">
+                <p><i class="${family} ${prefix}${name}" style="color:${color};"></i></p>
+                <span>${name}</span>
+            </div>
+            `;
+                break;
+
+        }
+    });
+};
+const printFood = (object) => {
+    object.forEach((element) => {
+        const { name, family, prefix, category,color} = element;
+
+        switch (category) {
+            case "food":
+                main.innerHTML += `
+            <div class="boxIcon">
+                <p><i class="${family} ${prefix}${name}" style="color:${color};"></i></p>
+                <span>${name}</span>
+            </div>
+            `;
+                break;
+        }
+    });
+}
+const printBeverage = (object) => {
+    object.forEach((element) => {
+        const { name, family, prefix, category,color} = element;
+
+        switch (category) {
+            case "beverage":
+                main.innerHTML += `
+            <div class="boxIcon">
+                <p><i class="${family} ${prefix}${name}" style="color:${color};"></i></p>
+                <span>${name}</span>
+            </div>
+            `;
+                break;
+        }
+    });
+}
+const printAnimal = (object) => {
+    object.forEach((element) => {
+        const { name, family, prefix, category,color} = element;
+
+        switch (category) {
+            case "animal":
+                main.innerHTML += `
+            <div class="boxIcon">
+                <p><i class="${family} ${prefix}${name}" style="color:${color};"></i></p>
+                <span>${name}</span>
+            </div>
+            `;
+                break;
+        }
+    });
+}
+
+
 
 /**
  * Main code
@@ -113,43 +199,59 @@ const icons = [
     },
 ];
 
+const colors = {
+    "food": 'yellow',
+    "beverage": 'red',
+    "animal": 'green'
+}
+
 const main = document.getElementById(`main`);
+const select = document.getElementById(`selectType`);
 
-/* <div class="boxIcon">
-    <p><i class="fab fa-apple"></i></p>
-    <span>apple-alt</span>
-</div> */
-
-icons.forEach((element) => {
-    const {name, family, prefix, category} = element;
-    
-    switch (category) {
-        case "food":
-            main.innerHTML += `
-            <div class="boxIcon">
-                <p><i class="${family} ${prefix}${name}" style="color:yellow;"></i></p>
-                <span>${name}</span>
-            </div>
-            `;
-            break;
-        case "beverage":
-            main.innerHTML += `
-            <div class="boxIcon">
-                <p><i class="${family} ${prefix}${name}" style="color:red;"></i></p>
-                <span>${name}</span>
-            </div>
-            `;
-            break;
-        case "animal":
-            main.innerHTML += `
-            <div class="boxIcon">
-                <p><i class="${family} ${prefix}${name}" style="color:green;"></i></p>
-                <span>${name}</span>
-            </div>
-            `;
-            break;
-        
+const iconColored = icons.map(
+    (element) => {
+        return {
+            ...element,
+            color: colors[element.category]
+        }
     }
+)
 
-    
-});
+const iconCategories = [];
+iconColored.forEach(
+    (element) => {
+        if ( iconCategories.includes(element.category) == false) {
+            iconCategories.push(element.category);
+        }
+    }
+);
+iconCategories.forEach(
+    (element) => {
+        select.innerHTML += `<option value="${element}">${element}</option>`
+    }
+);
+
+//Stampo tutti gli elementi
+printAll(iconColored);
+
+//Evento per cambiare la stampa con il cambiamento della select
+select.addEventListener(`change`, 
+    () => {
+        document.querySelectorAll('.boxIcon').forEach(e => e.remove());
+        const selectValue = document.getElementById(`selectType`).value;
+        switch (selectValue) {
+            case "all":
+                printAll(iconColored);
+                break;
+            case "food":
+                printFood(iconColored);
+                break;
+            case "beverage":
+                printBeverage(iconColored);
+                break;
+            case "animal":
+                printAnimal(iconColored);
+                break;
+        }
+    }
+);
