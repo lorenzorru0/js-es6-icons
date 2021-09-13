@@ -1,89 +1,18 @@
 /**
  * Functions
  */
-const printAll = (object) => {
+const printIcons = (object) => {
     object.forEach((element) => {
         const { name, family, prefix, category,color} = element;
 
-        switch (category) {
-            case "food":
-                main.innerHTML += `
-            <div class="boxIcon">
-                <p><i class="${family} ${prefix}${name}" style="color:${color};"></i></p>
-                <span>${name}</span>
-            </div>
-            `;
-                break;
-            case "beverage":
-                main.innerHTML += `
-            <div class="boxIcon">
-                <p><i class="${family} ${prefix}${name}" style="color:${color};"></i></p>
-                <span>${name}</span>
-            </div>
-            `;
-                break;
-            case "animal":
-                main.innerHTML += `
-            <div class="boxIcon">
-                <p><i class="${family} ${prefix}${name}" style="color:${color};"></i></p>
-                <span>${name}</span>
-            </div>
-            `;
-                break;
-
-        }
+        main.innerHTML += `
+        <div class="boxIcon">
+            <p><i class="${family} ${prefix}${name}" style="color:${color};"></i></p>
+            <span>${name}</span>
+        </div>
+        `;
     });
 };
-const printFood = (object) => {
-    object.forEach((element) => {
-        const { name, family, prefix, category,color} = element;
-
-        switch (category) {
-            case "food":
-                main.innerHTML += `
-            <div class="boxIcon">
-                <p><i class="${family} ${prefix}${name}" style="color:${color};"></i></p>
-                <span>${name}</span>
-            </div>
-            `;
-                break;
-        }
-    });
-}
-const printBeverage = (object) => {
-    object.forEach((element) => {
-        const { name, family, prefix, category,color} = element;
-
-        switch (category) {
-            case "beverage":
-                main.innerHTML += `
-            <div class="boxIcon">
-                <p><i class="${family} ${prefix}${name}" style="color:${color};"></i></p>
-                <span>${name}</span>
-            </div>
-            `;
-                break;
-        }
-    });
-}
-const printAnimal = (object) => {
-    object.forEach((element) => {
-        const { name, family, prefix, category,color} = element;
-
-        switch (category) {
-            case "animal":
-                main.innerHTML += `
-            <div class="boxIcon">
-                <p><i class="${family} ${prefix}${name}" style="color:${color};"></i></p>
-                <span>${name}</span>
-            </div>
-            `;
-                break;
-        }
-    });
-}
-
-
 
 /**
  * Main code
@@ -232,26 +161,23 @@ iconCategories.forEach(
 );
 
 //Stampo tutti gli elementi
-printAll(iconColored);
+printIcons(iconColored);
 
 //Evento per cambiare la stampa con il cambiamento della select
 select.addEventListener(`change`, 
     () => {
         document.querySelectorAll('.boxIcon').forEach(e => e.remove());
         const selectValue = document.getElementById(`selectType`).value;
-        switch (selectValue) {
-            case "all":
-                printAll(iconColored);
-                break;
-            case "food":
-                printFood(iconColored);
-                break;
-            case "beverage":
-                printBeverage(iconColored);
-                break;
-            case "animal":
-                printAnimal(iconColored);
-                break;
-        }
+        
+        const iconFiltered = iconColored.filter(
+            (element) => {
+                if ( element.category == selectValue || selectValue == 'all') {
+                    return true;
+                }
+                return false;
+            }    
+        );
+
+        printIcons(iconFiltered);
     }
 );
